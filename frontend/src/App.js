@@ -10,6 +10,8 @@ import {
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const BASE_URL = "https://expense-tracker-16a5.onrender.com";
+
 function App() {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
@@ -40,19 +42,21 @@ function App() {
     ]
   };
 
+  // FETCH
   useEffect(() => {
-    fetch("http://localhost:5000/api/expenses")
+    fetch(`${BASE_URL}/api/expenses`)
       .then(res => res.json())
       .then(data => setExpenses(data));
   }, []);
 
+  // ADD
   const addExpense = async () => {
     if (!title || !amount || !category) {
       alert("Fill all fields");
       return;
     }
 
-    await fetch("http://localhost:5000/api/expenses/add", {
+    await fetch(`${BASE_URL}/api/expenses/add`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -60,7 +64,7 @@ function App() {
       body: JSON.stringify({ title, amount, category })
     });
 
-    const res = await fetch("http://localhost:5000/api/expenses");
+    const res = await fetch(`${BASE_URL}/api/expenses`);
     const data = await res.json();
     setExpenses(data);
 
@@ -69,12 +73,13 @@ function App() {
     setCategory("");
   };
 
+  // DELETE
   const deleteExpense = async (id) => {
-    await fetch(`http://localhost:5000/api/expenses/${id}`, {
+    await fetch(`${BASE_URL}/api/expenses/${id}`, {
       method: "DELETE"
     });
 
-    const res = await fetch("http://localhost:5000/api/expenses");
+    const res = await fetch(`${BASE_URL}/api/expenses`);
     const data = await res.json();
     setExpenses(data);
   };
@@ -82,7 +87,6 @@ function App() {
   return (
     <div className="container">
 
-      {/* LEFT */}
       <div className="left">
         <h2>💰 Expense Tracker</h2>
 
@@ -106,7 +110,6 @@ function App() {
         </div>
       </div>
 
-      {/* RIGHT */}
       <div className="right">
         <h2>All Expenses</h2>
 
