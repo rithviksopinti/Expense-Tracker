@@ -73,6 +73,9 @@ MONGO_URI=your_mongodb_connection_string
 
 ---
 
+<img width="1918" height="1077" alt="image" src="https://github.com/user-attachments/assets/c2560b97-1fe6-4bb0-b892-31212d5a6fb1" />
+
+
 ## 📌 Future Improvements
 
 * User authentication (login/signup)
